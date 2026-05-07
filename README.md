@@ -11,21 +11,33 @@
 
 ## 快速启动
 
-### 方式一：Docker
-
 ```bash
-cp .env.example .env   # 填写 BAIDU_API_KEY
-docker compose up
+git clone https://github.com/bob798/xiaoban.git
+cd xiaoban
+pip install -r requirements.txt
+cp .env.example .env   # 填写 BAIDU_API_KEY（千帆控制台获取）
 ```
 
-服务启动后访问 http://localhost:8000
-
-### 方式二：本地开发
+### 运行 Demo（命令行，无需启动服务）
 
 ```bash
-pip install -r requirements.txt
-cp .env.example .env   # 填写 BAIDU_API_KEY
+python demo.py
+```
+
+直接输出 3 组指令的完整 Agent 链路结果。
+
+### 启动 Web 服务
+
+```bash
 uvicorn main:app --reload
+```
+
+浏览器打开 http://localhost:8000
+
+### Docker 部署
+
+```bash
+docker compose up
 ```
 
 ### 环境变量
@@ -37,23 +49,7 @@ uvicorn main:app --reload
 
 ## Demo 演示
 
-### 命令行运行（最快验证）
-
-```bash
-python demo.py
-```
-
-无需启动 Web 服务，直接运行即可看到 3 组指令的完整 Agent 链路结果（意图识别 → 任务规划 → 对话生成）。
-
-### Web 界面
-
-```bash
-uvicorn main:app --reload
-```
-
-启动服务后打开 http://localhost:8000 ，页面左侧为对话区，右侧为 Agent 调试面板。
-
-依次输入以下 3 组指令，观察右侧面板展示的文心 API 3 次调用链路：
+Web 界面左侧为对话区，右侧为 Agent 调试面板。输入以下 3 组指令，观察文心 API 3 次调用链路：
 
 ```
 开始今天的英语练习          → 意图=practice，机器人发起角色扮演教学
