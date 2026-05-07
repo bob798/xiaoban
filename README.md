@@ -35,6 +35,37 @@ uvicorn main:app --reload
 | `BAIDU_API_KEY` | 千帆平台 IAM 认证密钥（Bearer token） |
 | `DATABASE_URL` | 数据库连接串，默认 `sqlite+aiosqlite:///xiaoban.db` |
 
+## Demo 演示
+
+启动服务后打开 http://localhost:8000 ，页面左侧为对话区，右侧为 Agent 调试面板。
+
+依次输入以下 3 组指令，观察右侧面板展示的文心 API 3 次调用链路：
+
+```
+开始今天的英语练习          → 意图=practice，机器人发起角色扮演教学
+帮我复习上次的错误          → 意图=review，查询 FSRS 到期卡片并引导复习
+总结我这周的学习情况        → 意图=summary，聚合学习数据生成进度报告
+```
+
+每组指令的处理链路：
+
+```
+用户输入
+  → 文心 API 调用 1：意图识别（t=0.1）
+  → 查询记忆系统（用户画像 + FSRS 卡片）
+  → 文心 API 调用 2：任务规划（t=0.3）
+  → 文心 API 调用 3：对话生成（t=0.7）
+  → 返回回复 + 右侧面板展示完整调试信息
+```
+
+也可以通过 API 直接调用：
+
+```bash
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "开始今天的英语练习", "user_id": "demo"}'
+```
+
 ## 项目结构
 
 ```
