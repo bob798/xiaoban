@@ -1,0 +1,9 @@
+services:
+  xiaoban:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./xiaoban.db:/app/xiaoban.db
