@@ -37,6 +37,20 @@ uvicorn main:app --reload
 
 ## Demo 演示
 
+### 命令行运行（最快验证）
+
+```bash
+python demo.py
+```
+
+无需启动 Web 服务，直接运行即可看到 3 组指令的完整 Agent 链路结果（意图识别 → 任务规划 → 对话生成）。
+
+### Web 界面
+
+```bash
+uvicorn main:app --reload
+```
+
 启动服务后打开 http://localhost:8000 ，页面左侧为对话区，右侧为 Agent 调试面板。
 
 依次输入以下 3 组指令，观察右侧面板展示的文心 API 3 次调用链路：
